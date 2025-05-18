@@ -61,7 +61,7 @@ Link cloud streamlit dapat diaksaes melalui: https://student-dropout-prediction-
 
 Dashboard interaktif ini dibuat menggunakan **Tableau** untuk membantu institusi pendidikan memahami pola dan faktor-faktor utama yang menyebabkan *student dropout* (putus studi). Visualisasi ini memberikan insight penting yang dapat digunakan untuk meningkatkan tingkat kelulusan mahasiswa.
 
-![Student Dropout Dashboard](sitirobiiatul-Dashboard.png)
+![Student Dropout Dashboard](sitirobiiatul-dashboard.png)
 
 Dashboard ini memberikan gambaran menyeluruh atas data mahasiswa, mencakup:
 
