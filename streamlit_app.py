@@ -4,11 +4,11 @@ import joblib
 from sklearn.preprocessing import StandardScaler
 
 # Load model
-model = joblib.load('model_rf.joblib')
+model = joblib.load('lr_model.joblib')
 
 # Preprocessing
 def preprocess(data_input):
-    df = pd.read_csv('student_data_filtered.csv')
+    df = pd.read_csv('student_dropout_model_data.csv')
     df = df.drop(columns=['Status'], axis=1)
     df = pd.concat([df, data_input], ignore_index=True)
 
