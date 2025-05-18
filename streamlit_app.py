@@ -10,14 +10,19 @@ model = joblib.load('lr_model.joblib')
 def preprocess(data_input):
     df = pd.read_csv('student_dropout_model_data.csv')
     df = df.drop(columns=['Status'], axis=1)
+
+    # Gabungkan input dengan data latih agar scaling konsisten
     df = pd.concat([df, data_input], ignore_index=True)
+
+    # Tangani missing value jika ada
+    df.fillna(df.mean(numeric_only=True), inplace=True)
 
     scaler = StandardScaler()
     df_scaled = scaler.fit_transform(df)
 
     return df_scaled[-1].reshape(1, -1)
 
-# Mappings
+# Mapping kategori ke angka
 gender_map = {'Male': 1, 'Female': 0}
 marital_map = {
     'Single': 1, 'Married': 2, 'Widower': 3, 'Divorced': 4,
@@ -45,7 +50,7 @@ application_map = {
 }
 
 # UI
-st.title("🎓 Student Graduation Prediction")
+st.title("📉 Student Dropout Prediction")
 
 with st.form("student_form"):
     col1, col2 = st.columns(2)
@@ -74,6 +79,7 @@ with st.form("student_form"):
     submitted = st.form_submit_button("🔍 Predict")
 
 if submitted:
+    # Bangun dataframe dari input user
     data = [[
         marital_map[marital], application_map[application], prev_grade,
         admission_grade, int(displaced), int(debtor), int(tuition),
@@ -93,6 +99,11 @@ if submitted:
     ]
 
     input_df = pd.DataFrame(data, columns=columns)
+
+    # Debug: tampilkan input user
+    st.write("🔍 Data input untuk prediksi:", input_df)
+
+    # Preprocess & Predict
     final_input = preprocess(input_df)
     prediction = model.predict(final_input)[0]
 
